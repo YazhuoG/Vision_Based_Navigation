@@ -1,0 +1,52 @@
+video:
+  source: data/videos/demo.avi
+  backup_url: https://github.com/opencv/opencv/raw/master/samples/data/vtest.avi
+  use_webcam: false
+  webcam_index: 0
+  max_frames: null
+
+flow:
+  method: farneback  # options: farneback, dis
+  farneback:
+    pyr_scale: 0.5
+    levels: 3
+    winsize: 15
+    iterations: 3
+    poly_n: 5
+    poly_sigma: 1.2
+    flags: 0
+  dis:
+    preset: ultrafast  # options: ultrafast, fast, medium
+
+risk:
+  central_region: [0.3, 0.7]  # horizontal span (fraction of width)
+  magnitude_clip: 8.0
+  left_right_split: 0.5
+  openness_smooth_window: 5
+  risk_smooth_window: 5
+  thresholds:
+    avoid: 0.55
+    stop: 0.8
+  hysteresis:
+    leave_avoid: 0.45
+    leave_stop: 0.6
+
+memory:
+  window_size: 12
+  cooldown_frames: 8
+  recovery_frames: 18
+  oscillation_window: 20
+  oscillation_flips: 3
+
+fsm:
+  default_state: CRUISE_FORWARD
+  recovery_state: RECOVERY
+  search_enabled: false
+
+controller:
+  linear_velocity: 0.35
+  angular_velocity: 0.7
+  search_turn: 0.25
+
+metrics:
+  summary_states: [CRUISE_FORWARD, AVOID_LEFT, AVOID_RIGHT, STOP_TOO_CLOSE, RECOVERY]
